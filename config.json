@@ -1,0 +1,6 @@
+{
+    "name": "Feature Release Board",
+    "className": "CustomApp",
+    "server": "https://rally1.rallydev.com",
+    "sdk": "2.0rc2"
+}
