@@ -64,6 +64,10 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                         
                         retrievedColumns.push({
                             value: record,
+                            _planned_velocity_total: 0,
+                            _planned_velocity_self: 0,
+                            _planned_velocity_direct_children: 0,
+                            _planned_velocity_leaves: 0,
                             _planned_velocity: 0,
                             _missing_estimate: false,
                             columnHeaderConfig: {
@@ -100,21 +104,45 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     direction: 'ASC'
                 }
             ],
-            fetch: ['Name','Project','PlannedVelocity','Children'],
+            fetch: ['Name','Project','PlannedVelocity','Children','Parent', 'ObjectID'],
             listeners: {
                 load: function(store,records) {
+                    var current_project = null;
+                    if ( this.context ) {
+                        current_project = this.context.getProject();
+                    }
+//                    
+//                    _planned_velocity_total: 0,
+//                            _planned_velocity_self: 0,
+//                            _planned_velocity_direct_children: 0,
+//                            _planned_velocity_leaves: 0,
+//                    _planned_velocity: 0,
                     Ext.Array.each(records, function(record){
                         var project = record.get('Project');
-                        console.log(project.Name,project.Children.Count);
+                        console.log("Project", project.Name,project.Children.Count,project.Parent);
+                        var planned_velocity = record.get('PlannedVelocity') || 0;
+                        var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
                         
+                        retrievedColumns[index+1]._planned_velocity_total += planned_velocity;
                         if ( project.Children.Count == 0 ) {
-                            var planned_velocity = record.get('PlannedVelocity') || 0;
-                            
-                            var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
-                            if (planned_velocity == 0 ) {
-                                retrievedColumns[index+1]._missing_estimate = true;
-                            }
-                            retrievedColumns[index+1]._planned_velocity += planned_velocity;
+                            console.log("Leaf");
+                            retrievedColumns[index+1]._planned_velocity_leaves += planned_velocity;
+                        }
+                        if ( project.ObjectID == current_project.ObjectID ) {
+                            console.log("SELF!");
+                            retrievedColumns[index+1]._planned_velocity_self += planned_velocity;                            
+                        }
+                        if ( project.Parent && project.Parent.ObjectID == current_project.ObjectID ) {
+                            console.log("DIRECT CHILD");
+                            retrievedColumns[index+1]._planned_velocity_direct_children += planned_velocity;
+                        }
+                        
+                        // SHOW the larger of direct children sum , self's sum
+                        
+                        if ( retrievedColumns[index+1]._planned_velocity_self > retrievedColumns[index+1]._planned_velocity_direct_children ) {
+                            retrievedColumns[index+1]._planned_velocity = retrievedColumns[index+1]._planned_velocity_self;
+                        } else {
+                            retrievedColumns[index+1]._planned_velocity = retrievedColumns[index+1]._planned_velocity_direct_children;                            
                         }
                     });
                     this.fireEvent('columnsretrieved',this,retrievedColumns);

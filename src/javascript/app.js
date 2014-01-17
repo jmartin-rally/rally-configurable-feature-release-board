@@ -6,6 +6,7 @@ Ext.define('CustomApp', {
         var me = this;
         this.cardboard = Ext.create('Rally.ui.cardboard.CardBoard',{
             types: ['PortfolioItem/Feature'],
+            context: this.getContext(),
             attribute: 'Release',
             columnConfig: {
                 xtype: 'rallycardboardcolumn',

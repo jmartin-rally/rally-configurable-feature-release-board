@@ -35,14 +35,7 @@ Ext.define('Rally.technicalservices.plugin.ColumnHeaderUpdater', {
                 if ( data.percentDone === -1 ) {
                     return "No Planned Velocity";
                 } else {
-                    var text_string = "";
-                    if ( data.field_to_aggregate === "c_FeatureEstimate" ) {
-                        text_string = this.calculatePercent(data) + '%';
-                    } else {
-                        text_string = 'By Story: ' + this.calculatePercent(data) + '%';
-                    }
-                    
-                    return text_string;
+                    return this.calculatePercent(data) + '%';
                 }
             }
         })
@@ -127,9 +120,7 @@ Ext.define('Rally.technicalservices.plugin.ColumnHeaderUpdater', {
     getSummaryGrid: function() {
         var me = this;
         var estimate_title = "Feature Estimates";
-        if ( this.field_to_aggregate !== "c_FeatureEstimate") {
-            estimate_title = "Story Estimates";
-        }
+
         var store = Ext.create('Rally.data.custom.Store',{
             data: [
                 {
