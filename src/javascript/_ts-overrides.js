@@ -100,17 +100,22 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     direction: 'ASC'
                 }
             ],
-            fetch: ['Name','Project','PlannedVelocity'],
+            fetch: ['Name','Project','PlannedVelocity','Children'],
             listeners: {
                 load: function(store,records) {
                     Ext.Array.each(records, function(record){
-                        var planned_velocity = record.get('PlannedVelocity') || 0;
+                        var project = record.get('Project');
+                        console.log(project.Name,project.Children.Count);
                         
-                        var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
-                        if (planned_velocity == 0 ) {
-                            retrievedColumns[index+1]._missing_estimate = true;
+                        if ( project.Children.Count == 0 ) {
+                            var planned_velocity = record.get('PlannedVelocity') || 0;
+                            
+                            var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
+                            if (planned_velocity == 0 ) {
+                                retrievedColumns[index+1]._missing_estimate = true;
+                            }
+                            retrievedColumns[index+1]._planned_velocity += planned_velocity;
                         }
-                        retrievedColumns[index+1]._planned_velocity += planned_velocity;
                     });
                     this.fireEvent('columnsretrieved',this,retrievedColumns);
                     this.columnDefinitions = [];

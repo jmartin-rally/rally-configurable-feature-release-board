@@ -3,11 +3,11 @@
 <head>
     <title>Feature Release Board</title>
     <!--  (c) 2013 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Mon Jan 13 2014 18:26:08 GMT-0800 (PST) -->
+    <!--  Build Date: Fri Jan 17 2014 10:03:45 GMT-0800 (PST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Mon Jan 13 2014 18:26:08 GMT-0800 (PST)";
-        var CHECKSUM = 25246337586;
+        var APP_BUILD_DATE = "Fri Jan 17 2014 10:03:45 GMT-0800 (PST)";
+        var CHECKSUM = 25758871170;
     </script>
     
     <script type="text/javascript" src="/apps/2.0rc2/sdk.js"></script>
@@ -239,17 +239,22 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     direction: 'ASC'
                 }
             ],
-            fetch: ['Name','Project','PlannedVelocity'],
+            fetch: ['Name','Project','PlannedVelocity','Children'],
             listeners: {
                 load: function(store,records) {
                     Ext.Array.each(records, function(record){
-                        var planned_velocity = record.get('PlannedVelocity') || 0;
+                        var project = record.get('Project');
+                        console.log(project.Name,project.Children.Count);
                         
-                        var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
-                        if (planned_velocity == 0 ) {
-                            retrievedColumns[index+1]._missing_estimate = true;
+                        if ( project.Children.Count == 0 ) {
+                            var planned_velocity = record.get('PlannedVelocity') || 0;
+                            
+                            var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
+                            if (planned_velocity == 0 ) {
+                                retrievedColumns[index+1]._missing_estimate = true;
+                            }
+                            retrievedColumns[index+1]._planned_velocity += planned_velocity;
                         }
-                        retrievedColumns[index+1]._planned_velocity += planned_velocity;
                     });
                     this.fireEvent('columnsretrieved',this,retrievedColumns);
                     this.columnDefinitions = [];
