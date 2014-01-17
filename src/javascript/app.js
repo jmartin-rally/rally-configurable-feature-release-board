@@ -21,12 +21,19 @@ Ext.define('CustomApp', {
             cardConfig: {
                 showIconsAndHighlightBorder: false,
                 fields: [
+                    {
+                        name:'Name',
+                        fetch:['c_PIPlanEstimate'],
+                        renderTpl: Ext.create('Ext.XTemplate', '<tpl>({c_PIPlanEstimate})</tpl>')
+                    }
+                ],
+                /*[
                     'FormattedID',
                     'Name',
-                    /*{ name: 'Project', renderer: me._renderProject },*/
+                    { name: 'Project', renderer: me._renderProject },
                     'State',
                     { name: 'c_PIPlanEstimate', fetch: ['c_PIPlanEstimate'] }
-                ],
+                ],*/
                 listeners: {
                     added: function(card,container){
                         me.logger.log(this,card,container);

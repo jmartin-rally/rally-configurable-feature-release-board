@@ -113,21 +113,17 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     }
                     Ext.Array.each(records, function(record){
                         var project = record.get('Project');
-                        console.log("Project", project.Name,project.Children.Count,project.Parent);
                         var planned_velocity = record.get('PlannedVelocity') || 0;
                         var index = Ext.Array.indexOf(iteration_names,record.get('Name'));
                         
                         retrievedColumns[index+1]._planned_velocity_total += planned_velocity;
                         if ( project.Children.Count == 0 ) {
-                            console.log("Leaf");
                             retrievedColumns[index+1]._planned_velocity_leaves += planned_velocity;
                         }
                         if ( project.ObjectID == current_project.ObjectID ) {
-                            console.log("SELF!");
                             retrievedColumns[index+1]._planned_velocity_self += planned_velocity;                            
                         }
                         if ( project.Parent && project.Parent.ObjectID == current_project.ObjectID ) {
-                            console.log("DIRECT CHILD");
                             retrievedColumns[index+1]._planned_velocity_direct_children += planned_velocity;
                         }
                         
