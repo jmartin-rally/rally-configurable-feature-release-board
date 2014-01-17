@@ -111,12 +111,6 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     if ( this.context ) {
                         current_project = this.context.getProject();
                     }
-//                    
-//                    _planned_velocity_total: 0,
-//                            _planned_velocity_self: 0,
-//                            _planned_velocity_direct_children: 0,
-//                            _planned_velocity_leaves: 0,
-//                    _planned_velocity: 0,
                     Ext.Array.each(records, function(record){
                         var project = record.get('Project');
                         console.log("Project", project.Name,project.Children.Count,project.Parent);

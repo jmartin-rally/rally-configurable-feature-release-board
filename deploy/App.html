@@ -3,11 +3,11 @@
 <head>
     <title>Feature Release Board</title>
     <!--  (c) 2013 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Fri Jan 17 2014 13:57:57 GMT-0800 (PST) -->
+    <!--  Build Date: Fri Jan 17 2014 14:11:12 GMT-0800 (PST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Fri Jan 17 2014 13:57:57 GMT-0800 (PST)";
-        var CHECKSUM = 28701742146;
+        var APP_BUILD_DATE = "Fri Jan 17 2014 14:11:12 GMT-0800 (PST)";
+        var CHECKSUM = 28196125365;
     </script>
     
     <script type="text/javascript" src="/apps/2.0rc2/sdk.js"></script>
@@ -250,12 +250,6 @@ Ext.override(Rally.ui.cardboard.CardBoard,{
                     if ( this.context ) {
                         current_project = this.context.getProject();
                     }
-//                    
-//                    _planned_velocity_total: 0,
-//                            _planned_velocity_self: 0,
-//                            _planned_velocity_direct_children: 0,
-//                            _planned_velocity_leaves: 0,
-//                    _planned_velocity: 0,
                     Ext.Array.each(records, function(record){
                         var project = record.get('Project');
                         console.log("Project", project.Name,project.Children.Count,project.Parent);
@@ -560,6 +554,7 @@ Ext.define('CustomApp', {
             context: this.getContext(),
             attribute: 'Release',
             columnConfig: {
+                cardLimit: 500,
                 xtype: 'rallycardboardcolumn',
                 displayField: 'Name',
                 valueField: '_ref',
@@ -567,7 +562,7 @@ Ext.define('CustomApp', {
                     {ptype:'tscolumnheaderupdater', field_to_aggregate: 'c_PIPlanEstimate'}
                 ]
             },
-            storeConfig:{ },
+            storeConfig:{ limit: 500 },
             cardConfig: {
                 showIconsAndHighlightBorder: false,
                 fields: [

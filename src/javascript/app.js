@@ -9,6 +9,7 @@ Ext.define('CustomApp', {
             context: this.getContext(),
             attribute: 'Release',
             columnConfig: {
+                cardLimit: 500,
                 xtype: 'rallycardboardcolumn',
                 displayField: 'Name',
                 valueField: '_ref',
@@ -16,7 +17,7 @@ Ext.define('CustomApp', {
                     {ptype:'tscolumnheaderupdater', field_to_aggregate: 'c_PIPlanEstimate'}
                 ]
             },
-            storeConfig:{ },
+            storeConfig:{ limit: 500 },
             cardConfig: {
                 showIconsAndHighlightBorder: false,
                 fields: [
