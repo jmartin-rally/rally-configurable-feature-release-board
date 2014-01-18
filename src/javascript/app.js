@@ -8,6 +8,7 @@ Ext.define('CustomApp', {
             types: ['PortfolioItem/Feature'],
             context: this.getContext(),
             attribute: 'Release',
+            enableRanking: false,
             columnConfig: {
                 cardLimit: 500,
                 xtype: 'rallycardboardcolumn',
