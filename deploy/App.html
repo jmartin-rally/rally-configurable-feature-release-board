@@ -3,11 +3,11 @@
 <head>
     <title>Feature Release Board</title>
     <!--  (c) 2013 Rally Software Development Corp.  All Rights Reserved. -->
-    <!--  Build Date: Fri Jan 17 2014 20:39:40 GMT-0800 (PST) -->
+    <!--  Build Date: Wed Jan 22 2014 12:32:34 GMT-0800 (PST) -->
     
     <script type="text/javascript">
-        var APP_BUILD_DATE = "Fri Jan 17 2014 20:39:40 GMT-0800 (PST)";
-        var CHECKSUM = 28224493882;
+        var APP_BUILD_DATE = "Wed Jan 22 2014 12:32:34 GMT-0800 (PST)";
+        var CHECKSUM = 28257207981;
     </script>
     
     <script type="text/javascript" src="/apps/2.0rc2/sdk.js"></script>
@@ -723,7 +723,7 @@ Ext.define('Rally.technicalservices.plugin.ColumnHeaderUpdater', {
         var grid = Ext.create('Rally.ui.grid.Grid',{
             store: store,
             columnCfgs: [
-                { text: 'Release Plan', dataIndex:'PlannedVelocity' },
+                { text: 'Release Planned Velocity', dataIndex:'PlannedVelocity' },
                 { text: estimate_title, dataIndex: 'TotalEstimate' },
                 { text: 'Remaining', dataIndex: 'Remaining' }
             ],

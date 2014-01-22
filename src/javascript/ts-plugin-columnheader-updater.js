@@ -134,7 +134,7 @@ Ext.define('Rally.technicalservices.plugin.ColumnHeaderUpdater', {
         var grid = Ext.create('Rally.ui.grid.Grid',{
             store: store,
             columnCfgs: [
-                { text: 'Release Plan', dataIndex:'PlannedVelocity' },
+                { text: 'Release Planned Velocity', dataIndex:'PlannedVelocity' },
                 { text: estimate_title, dataIndex: 'TotalEstimate' },
                 { text: 'Remaining', dataIndex: 'Remaining' }
             ],
